@@ -9,7 +9,7 @@
 		</provider>
 
 		<!-- Entities -->
-		<class>com.skilldistillery.healthyhabitsjpa.entities.HealthyHabit</class>
+		<class>com.skilldistillery.healthyhabitsjpa.entities.HealthyHabits</class>
 
 		<properties>
 			<!-- Accessing the database schema right here -->

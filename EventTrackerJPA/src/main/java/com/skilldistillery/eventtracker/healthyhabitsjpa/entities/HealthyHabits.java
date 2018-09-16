@@ -1,4 +1,4 @@
-package com.skilldistillery.healthyhabitsjpa.entities;
+package com.skilldistillery.eventtracker.healthyhabitsjpa.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

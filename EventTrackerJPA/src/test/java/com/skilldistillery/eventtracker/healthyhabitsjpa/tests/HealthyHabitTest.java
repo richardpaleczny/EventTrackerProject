@@ -1,4 +1,4 @@
-package com.skilldistillery.healthyhabitsjpa.tests;
+package com.skilldistillery.eventtracker.healthyhabitsjpa.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.skilldistillery.healthyhabitsjpa.entities.HealthyHabits;
+import com.skilldistillery.eventtracker.healthyhabitsjpa.entities.HealthyHabits;
 
 class HealthyHabitTest {
 
@@ -34,6 +34,7 @@ class HealthyHabitTest {
 	@Test
 	void test_healthyHabit_mappings() {
 		assertEquals("Meditation", healthyHabits.getActivity());
+		assertEquals(true, healthyHabits.getGoalMet());
 	}
 
 }

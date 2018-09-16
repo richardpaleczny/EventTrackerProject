@@ -1,5 +1,7 @@
 package com.skilldistillery.eventtracker;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +13,7 @@ public class EventTrackerRestApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		assertNull(null);
 	}
 
 }
