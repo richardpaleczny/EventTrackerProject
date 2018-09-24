@@ -45,7 +45,7 @@ function init() {
 function createHHEvent(event) {
 	
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/api/healthyhabits/");
+	xhr.open("POST", "api/healthyhabits/");
 
 	xhr.setRequestHeader("Content-type", "application/json");
 
@@ -79,7 +79,7 @@ function createHHEvent(event) {
 function requestAllHHEvents() {
 
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "/api/healthyhabits/");
+	xhr.open("GET", "api/healthyhabits/");
 
 	xhr.onreadystatechange = function() {
 
@@ -226,7 +226,7 @@ function displayActivity(idAsNum) {
 	
 	// Find the activity by id to get its contents
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "/api/healthyhabits/" + idAsNum + "/");
+	xhr.open("GET", "api/healthyhabits/" + idAsNum + "/");
 
 	xhr.onreadystatechange = function() {
 
@@ -321,7 +321,7 @@ function displayForm(idAsNum) {
 function requestHHEditActivity(idAsNum, editActivity) {
 	
 	var xhr = new XMLHttpRequest();
-	xhr.open("PUT", "/api/healthyhabits/" + idAsNum + "/");
+	xhr.open("PUT", "api/healthyhabits/" + idAsNum + "/");
 
 	xhr.setRequestHeader("Content-type", "application/json");
 
@@ -331,7 +331,9 @@ function requestHHEditActivity(idAsNum, editActivity) {
 		  
 	    if ( xhr.status == 200 || xhr.status == 201 ) {
 	    	
-	    	console.log("test");
+	    	let updatedActivity = JSON.parse(xhr.responseText);
+	    	document.body.innerHTML="";
+	    	displayActivity(updatedActivity.id);
 	      
 	    } else {
 	    	
