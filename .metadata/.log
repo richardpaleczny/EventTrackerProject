@@ -1895,3 +1895,6 @@ Caused by: org.gradle.process.internal.ExecException: Process 'command '/Library
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeAction(ExecuteActionsTaskExecuter.java:120)
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeActions(ExecuteActionsTaskExecuter.java:99)
 	... 30 more
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-24 10:05:34.876
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'

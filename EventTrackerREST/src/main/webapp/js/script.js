@@ -11,7 +11,6 @@ function init() {
 	
 	// Map event listener to submit button which passes event object to method
 	// which performs xhr to create an event
-	
 	let submit = document.addEventForm.submit;
 	
 	submit.addEventListener("click", function(e) {
@@ -291,6 +290,10 @@ function displayForm(idAsNum) {
 	edit.type = "submit";
 	edit.value = "Edit Activity";
 	
+	let deleteEvent = document.createElement("input");
+	deleteEvent.type = "submit";
+	deleteEvent.value = "Delete";
+	
 	form.appendChild(activityInput);
 	form.appendChild(RTinput);
 	form.appendChild(RAinput);
@@ -298,6 +301,7 @@ function displayForm(idAsNum) {
 	form.appendChild(GMinput);
 	form.appendChild(FRinput);
 	form.appendChild(edit);
+	form.appendChild(deleteEvent);
 	document.querySelector("body").appendChild(form);
 	
 	edit.addEventListener("click", function(e) {
@@ -313,6 +317,13 @@ function displayForm(idAsNum) {
 		editActivity.feelingRating = FRinput.value;
 		
 		requestHHEditActivity(idAsNum, editActivity);
+		
+	});
+	
+	deleteEvent.addEventListener("click", function(e) {
+		
+		e.preventDefault();
+		requestHHDeleteEvent(idAsNum);
 		
 	});
 	
@@ -352,7 +363,29 @@ function requestHHEditActivity(idAsNum, editActivity) {
 	
 }
 
+function requestHHDeleteEvent(idAsNum) {
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("DELETE", "api/healthyhabits/" + idAsNum + "/");
 
+	xhr.onreadystatechange = function() {
+
+		if (xhr.readyState === 4 && xhr.status === 200) {
+
+			init();
+
+		} else if (xhr.status >= 400) {
+			
+			console.log("DELETE request failed.");
+			console.error(xhr.status + ': ' + xhr.responseText);
+
+		}
+
+	};
+
+	xhr.send(null);
+	
+}
 
 
 
