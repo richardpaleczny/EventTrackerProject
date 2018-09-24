@@ -144,6 +144,8 @@ function createHHEventTable(eventArr) {
 		hhBodyRow.className = "inTBody";
 		
 		let hhIdTd = document.createElement("td");
+		hhIdTd.className = "hhIdTd";
+		
 		let hhActivityTd = document.createElement("td");
 		let hhRecommendedTimeTd = document.createElement("td");
 		let hhRecommendedAmountTd = document.createElement("td");
@@ -183,7 +185,11 @@ function createHHEventTable(eventArr) {
 			
 			tableBodyTrColl[i].addEventListener("click", function(e) {
 				
-				console.log("test");
+				// Clear the screen, then create elements to display the
+				// particular activity
+				let idAsNum = parseInt(document.getElementsByClassName("hhIdTd")[i].textContent);
+				document.body.innerHTML="";
+				displayActivity(idAsNum);
 				
 			});
 			
@@ -191,3 +197,72 @@ function createHHEventTable(eventArr) {
 		
 	}
 }
+
+// Display the particular activity which was clicked on from the table
+function displayActivity(idAsNum) {
+	
+	let body = document.querySelector("body");
+	
+	let h2 = document.createElement("h2");
+	body.appendChild(h2);
+	
+	let ul = document.createElement("ul");
+	body.appendChild(ul);
+	
+	let liRT = document.createElement("li");
+	ul.appendChild(liRT);
+	
+	let liRA = document.createElement("li");
+	ul.appendChild(liRA);
+	
+	let liTS = document.createElement("li");
+	ul.appendChild(liTS);
+	
+	let liGM = document.createElement("li");
+	ul.appendChild(liGM);
+	
+	let liFR = document.createElement("li");
+	ul.appendChild(liFR);
+	
+	// Find the activity by id to get its contents
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", "/api/healthyhabits/" + idAsNum + "/");
+
+	xhr.onreadystatechange = function() {
+
+		if (xhr.readyState === 4 && xhr.status === 200) {
+
+			// hits *index()* and should return all events in an array of
+			// objects
+			let activity = JSON.parse(xhr.responseText);
+			h2.textContent = "Activity: " + activity.activity;
+			liRT.textContent = "Recommended time to spend on activity: " + activity.recommendedTime + " minutes";
+			liRA.textContent = "Recommended amount for activity (if applicable): " + activity.recommendedAmount;
+			liTS.textContent = `Time actually spent doing activity: ${activity.timeSpent} minutes`;
+			liGM.textContent = `Was the goal met: ${activity.goalMet}`;
+			liFR.textContent = `How the user felt (magnitude 1-10) well-being wise, after doing activity: ${activity.feelingRating}`;
+
+		} else if (xhr.status >= 400) {
+			
+			console.log("GET request failed.");
+			console.error(xhr.status + ': ' + xhr.responseText);
+
+		}
+
+	};
+
+	xhr.send(null);
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
