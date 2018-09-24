@@ -241,6 +241,8 @@ function displayActivity(idAsNum) {
 			liTS.textContent = `Time actually spent doing activity: ${activity.timeSpent} minutes`;
 			liGM.textContent = `Was the goal met: ${activity.goalMet}`;
 			liFR.textContent = `How the user felt (magnitude 1-10) well-being wise, after doing activity: ${activity.feelingRating}`;
+			
+			displayForm(idAsNum);
 
 		} else if (xhr.status >= 400) {
 			
@@ -255,10 +257,98 @@ function displayActivity(idAsNum) {
 	
 }
 
+function displayForm(idAsNum) {
+	
+	let form = document.createElement("form");
+	
+	console.log("test");
+	
+	let activityInput = document.createElement("input");
+	activityInput.type = "text";
+	activityInput.placeholder = "Activity";
+	
+	let RTinput = document.createElement("input");
+	RTinput.type = "text";
+	RTinput.placeholder = "Recommended Time";
+	
+	let RAinput = document.createElement("input");
+	RAinput.type = "text";
+	RAinput.placeholder = "Recommended Amount";
+	
+	let TSinput = document.createElement("input");
+	TSinput.type = "text";
+	TSinput.placeholder = "Time Spent";
+	
+	let GMinput = document.createElement("input");
+	GMinput.type = "text";
+	GMinput.placeholder = "Goal Met (Boolean)";
+	
+	let FRinput = document.createElement("input");
+	FRinput.type = "text";
+	FRinput.placeholder = "Feeling Rating";
+	
+	let edit = document.createElement("input");
+	edit.type = "submit";
+	edit.value = "Edit Activity";
+	
+	form.appendChild(activityInput);
+	form.appendChild(RTinput);
+	form.appendChild(RAinput);
+	form.appendChild(TSinput);
+	form.appendChild(GMinput);
+	form.appendChild(FRinput);
+	form.appendChild(edit);
+	document.querySelector("body").appendChild(form);
+	
+	edit.addEventListener("click", function(e) {
+		
+		e.preventDefault();
+		
+		let editActivity = {};
+		editActivity.activity = activityInput.value;
+		editActivity.recommendedTime = RTinput.value;
+		editActivity.recommendedAmount = RAinput.value;
+		editActivity.timeSpent = TSinput.value;
+		editActivity.goalMet = GMinput.value;
+		editActivity.feelingRating = FRinput.value;
+		
+		requestHHEditActivity(idAsNum, editActivity);
+		
+	});
+	
+}
 
+function requestHHEditActivity(idAsNum, editActivity) {
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("PUT", "/api/healthyhabits/" + idAsNum + "/");
 
+	xhr.setRequestHeader("Content-type", "application/json");
 
+	xhr.onreadystatechange = function() {
+		
+	  if (xhr.readyState === 4 ) {
+		  
+	    if ( xhr.status == 200 || xhr.status == 201 ) {
+	    	
+	    	console.log("test");
+	      
+	    } else {
+	    	
+	      console.log("POST request failed.");
+	      console.error(xhr.status + ': ' + xhr.responseText);
+	      
+	    }
+	    
+	  }
+	  
+	};
 
+	let JSONeditActivity = JSON.stringify(editActivity);
+
+	xhr.send(JSONeditActivity);
+	
+}
 
 
 
