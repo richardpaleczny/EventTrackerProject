@@ -27,6 +27,18 @@ export class HealthyHabitsService {
       .pipe(catchError(this.handleError));
   }
 
+  show(id): Observable<HealthyHabits> {
+    return this.http
+      .get<HealthyHabits>(`${this.url}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  create(healthyHabits: HealthyHabits): Observable<HealthyHabits> {
+    return this.http
+      .post<HealthyHabits>(this.url, healthyHabits)
+      .pipe(catchError(this.handleError));
+  }
+
   handleError(error: any) {
     console.error('Something Broke');
     console.log(error);

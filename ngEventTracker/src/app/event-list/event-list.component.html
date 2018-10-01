@@ -1,4 +1,5 @@
-<div>
+<!-- Table view, default -->
+<div *ngIf="!selected">
   <table>
     <thead>
       <tr>
@@ -12,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let hh of healthyHabits">
+      <tr *ngFor="let hh of healthyHabits" (click)="show(hh.id)">
         <td>{{hh.id}}</td>
         <td>{{hh.activity}}</td>
         <td>{{hh.recommendedTime}}</td>
@@ -23,6 +24,42 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Add a healthy habit form -->
+<div *ngIf="!selected">
+  <br>
+  <h5>Add a Healthy Habit</h5>
+  <form #hhAddForm="ngForm">
+    <input type="text" name="activity" placeholder="Activity" ngModel />
+    <br>
+    <input type="text" name="recommendedTime" placeholder="Recommended Time" ngModel />
+    <br>
+    <input type="text" name="recommendedAmount" placeholder="Recommended Amount" ngModel />
+    <br>
+    <input type="text" name="timeSpent" placeholder="Time Spent" ngModel />
+    <br>
+    <input type="text" name="goalMet" placeholder="Goal Met" ngModel />
+    <br>
+    <input type="text" name="feelingRating" placeholder="Feeling Rating" ngModel />
+    <br>
+    <button class="btn btn-outline-primary" (click)="createHealthyHabit(hhAddForm)">Add</button>
+  </form>
+</div>
+
+<!-- Detail view, if selected -->
+<div *ngIf="selected">
+  <h3>List Item Detail</h3>
+  <ul>
+    <li><strong>ID:</strong> {{selected.id}}</li>
+    <li><strong>Activity:</strong> {{selected.activity}}</li>
+    <li><strong>Recommended Time (if applicable):</strong> {{selected.recommendedTime}} minutes</li>
+    <li><strong>Recommended Amount (if applicable):</strong> {{selected.recommendedAmount}}</li>
+    <li><strong>Time Actually Spent (if applicable):</strong> {{selected.timeSpent}} minutes</li>
+    <li><strong>Was Goal Met:</strong> {{selected.goalMet}}</li>
+    <li><strong>User Feeling Rating (How much better did this make you feel? 1-10):</strong> {{selected.feelingRating}}</li>
+  </ul>
+  <button id="back" class="btn btn-outline-dark" (click)="displayTable()">Back</button>
 </div>
 
 <!-- Create table
