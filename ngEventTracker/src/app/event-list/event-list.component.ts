@@ -20,8 +20,23 @@ export class EventListComponent implements OnInit {
 
   newHealthyHabits = new HealthyHabits();
 
+  countGoalsMet = 0;
+
   // ****************************************************************
   // METHODS
+
+  calculateGoalsMet = function() {
+    // Reset every time you come into this method, then, recalculate
+    // when needed
+    this.countGoalsMet = 0;
+    if (this.healthyHabits) {
+      this.healthyHabits.forEach(value => {
+        if (value.goalMet) {
+          this.countGoalsMet++;
+        }
+      });
+    }
+  };
 
   updateHealthyHabits = function(healthyHabits: HealthyHabits) {
     this.hhService.update(healthyHabits).subscribe(
@@ -44,12 +59,13 @@ export class EventListComponent implements OnInit {
   }
 
   reload = function() {
-    this.hhService
-      .index()
-      .subscribe(
-        data => (this.healthyHabits = data),
-        err => console.error('Observer got an error: ' + err)
-      );
+    this.hhService.index().subscribe(
+      data => {
+        this.healthyHabits = data;
+        this.calculateGoalsMet();
+      },
+      err => console.error('Observer got an error: ' + err)
+    );
   };
 
   show = function(id) {

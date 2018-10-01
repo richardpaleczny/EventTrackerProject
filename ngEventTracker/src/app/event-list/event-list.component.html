@@ -1,4 +1,4 @@
-<!-- Table view, default -->
+<!-- Table view, default (homepage only) -->
 <div *ngIf="!selected">
   <table>
     <thead>
@@ -22,7 +22,7 @@
         <td>{{hh.timeSpent}}</td>
         <td>{{hh.goalMet}}</td>
         <td>{{hh.feelingRating}}</td>
-        <!-- Delete functionality -->
+        <!-- Delete functionality here -->
         <td>
           <button (click)="deleteHealthyHabit(hh.id)" type="button" class="close" aria-label="Close">
             <span aria-hidden="true">×</span>
@@ -33,7 +33,7 @@
   </table>
 </div>
 
-<!-- Add a healthy habit form -->
+<!-- Add a healthy habit form (homepage only) -->
 <div *ngIf="!selected">
   <br>
   <h5>Add a Healthy Habit</h5>
@@ -54,6 +54,14 @@
   </form>
 </div>
 
+<!-- Total # goals met calculation -->
+<div *ngIf="!selected">
+  <br>
+  <h5># Of Goals Met: {{countGoalsMet}}</h5>
+</div>
+
+<!-- END OF HOMEPAGE ********************************************** -->
+
 <!-- Detail view, if selected -->
 <div *ngIf="selected && !editHealthyHabits">
   <h3>List Item Detail</h3>
@@ -70,7 +78,7 @@
   <button id="back" class="btn btn-outline-dark" (click)="displayTable()">Back</button>
 </div>
 
-<!-- Edit view -->
+<!-- Edit view (from line 69) -->
 <div *ngIf="editHealthyHabits">
   <h3>Edit Item Detail</h3>
   <form>
@@ -119,10 +127,3 @@
     </table>
   </form>
 </div>
-
-<!-- Create table
-> create click event row go detail
-> (just like todos) edit button from detail to edit page
-> add new event from homepage to update the list of events
-> delete from row on homepage
-> optionally some aggregation functionality on the homepage or somewhere -->
