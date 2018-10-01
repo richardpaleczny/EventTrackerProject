@@ -22,6 +22,8 @@ export class EventListComponent implements OnInit {
 
   countGoalsMet = 0;
 
+  sumTimeSpentOnHH = 0;
+
   // ****************************************************************
   // METHODS
 
@@ -33,6 +35,19 @@ export class EventListComponent implements OnInit {
       this.healthyHabits.forEach(value => {
         if (value.goalMet) {
           this.countGoalsMet++;
+        }
+      });
+    }
+  };
+
+  calculateSumTimeSpentOnHH = function() {
+    // Reset every time you come into this method, then, recalculate
+    // when needed
+    this.sumTimeSpentOnHH = 0;
+    if (this.healthyHabits) {
+      this.healthyHabits.forEach(value => {
+        if (value.timeSpent !== 0) {
+          this.sumTimeSpentOnHH += value.timeSpent;
         }
       });
     }
@@ -63,6 +78,7 @@ export class EventListComponent implements OnInit {
       data => {
         this.healthyHabits = data;
         this.calculateGoalsMet();
+        this.calculateSumTimeSpentOnHH();
       },
       err => console.error('Observer got an error: ' + err)
     );

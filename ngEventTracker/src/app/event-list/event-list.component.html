@@ -60,7 +60,12 @@
   <h5># Of Goals Met: {{countGoalsMet}}</h5>
 </div>
 
-<!-- END OF HOMEPAGE ********************************************** -->
+<!-- Total # time spent on healthy habits -->
+<div *ngIf="!selected">
+  <h5>Total Time Spent Doing Healthy Activities: {{sumTimeSpentOnHH}} minutes</h5>
+</div>
+
+<!-- END OF HOMEPAGE CONTENT ************************************** -->
 
 <!-- Detail view, if selected -->
 <div *ngIf="selected && !editHealthyHabits">
