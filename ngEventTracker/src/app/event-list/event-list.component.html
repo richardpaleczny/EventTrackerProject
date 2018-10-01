@@ -1,5 +1,33 @@
-<h1>EventTracker NG Test</h1>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Activity</th>
+        <th>Recommended Time</th>
+        <th>Recommended Amount</th>
+        <th>Time Spent</th>
+        <th>Goal Met</th>
+        <th>Feeling Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hh of healthyHabits">
+        <td>{{hh.id}}</td>
+        <td>{{hh.activity}}</td>
+        <td>{{hh.recommendedTime}}</td>
+        <td>{{hh.recommendedAmount}}</td>
+        <td>{{hh.timeSpent}}</td>
+        <td>{{hh.goalMet}}</td>
+        <td>{{hh.feelingRating}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<ul *ngFor="let hh of healthyHabits">
-  <li>{{hh.activity}}</li>
-</ul>
+<!-- Create table
+> create click event row go detail
+> (just like todos) edit button from detail to edit page
+> add new event from homepage to update the list of events
+> delete from row on homepage
+> optionally some aggregation functionality on the homepage or somewhere -->
