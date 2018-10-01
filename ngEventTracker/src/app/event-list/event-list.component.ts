@@ -1,6 +1,6 @@
+import { HealthyHabits } from './../models/healthy-habits';
 import { HealthyHabitsService } from './../healthy-habits.service';
 import { Component, OnInit } from '@angular/core';
-import { HealthyHabits } from '../models/healthy-habits';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -12,6 +12,8 @@ export class EventListComponent implements OnInit {
   // ****************************************************************
   // FIELDS
 
+  editHealthyHabits = null;
+
   selected = null;
 
   healthyHabits: HealthyHabits[] = [];
@@ -20,6 +22,22 @@ export class EventListComponent implements OnInit {
 
   // ****************************************************************
   // METHODS
+
+  updateHealthyHabits = function(healthyHabits: HealthyHabits) {
+    this.hhService.update(healthyHabits).subscribe(
+      data => {
+        this.selected = healthyHabits;
+
+        this.reload();
+        this.editHealthyHabits = null;
+      },
+      err => console.error('Observer got an error: ' + err)
+    );
+  };
+
+  setEditHealthyHabits = function() {
+    this.editHealthyHabits = Object.assign({}, this.selected);
+  };
 
   displayTable() {
     this.selected = null;
@@ -62,6 +80,20 @@ export class EventListComponent implements OnInit {
 
     hhAddForm.reset();
   };
+
+  deleteHealthyHabit = function(id) {
+    this.hhService.destroy(id).subscribe(
+      data => {
+        this.reload();
+      },
+      err => {
+        console.error('Observer got an error: ' + err);
+      }
+    );
+  };
+
+  // ****************************************************************
+  // HELPERS
 
   constructor(private hhService: HealthyHabitsService) {}
 

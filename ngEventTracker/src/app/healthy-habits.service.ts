@@ -39,11 +39,26 @@ export class HealthyHabitsService {
       .pipe(catchError(this.handleError));
   }
 
+  update(healthyHabits: HealthyHabits) {
+    return this.http
+      .put(`${this.url}/${healthyHabits.id}`, healthyHabits)
+      .pipe(catchError(this.handleError));
+  }
+
+  destroy(id) {
+    return this.http
+      .delete(`${this.url}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
   handleError(error: any) {
     console.error('Something Broke');
     console.log(error);
     return throwError(error.json().error || 'Server Error');
   }
+
+  // ****************************************************************
+  // HELPERS
 
   constructor(private http: HttpClient) {}
 }
